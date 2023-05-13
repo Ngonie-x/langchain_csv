@@ -11,24 +11,40 @@ environ.Env.read_env()
 API_KEY = env("apikey")
 
 llm = OpenAI(openai_api_key=API_KEY)
-df = pd.read_csv("books.csv")
+df = pd.read_csv("book_sample.csv")
 
-agent = create_pandas_dataframe_agent(llm, df, verbose=True)
+agent = create_pandas_dataframe_agent(llm, df, verbose=False)
 
 
 def query_agent(query):
-    prompt = f"""
-    For the following query, if it requires drawing a table, reply as follows:
-    'table': '[heading1, heading2, heading3], [row1data1, row1data2, row1data3], [row2data1, row2data2, row2data3]...'
-    
-    If it requires drawing a graph, reply as follows:
-    'graph': '[(type, bar), (x-axis-label, y-axis-label), [(x-value1, y-value1), (x-value2, y-value2), ...]]'
-    
-    If it is just asking a question that does that requires neither, reply as follows:
-    'Answer': 'Answer'
-    
-    Query: {query}
-    """
+    prompt = (
+        """
+            For the following query, if it requires drawing a table, reply as follows:
+            "table": {"columns": ["column1", "column2", ...], "data": [[value1, value2, ...], [value1, value2, ...], ...]}
+            
+            If it requires drawing a graph, reply as follows:
+            "chart_type": {"columns": ["column1", "column2", ...], "data": [[value1, value2, ...], [value1, value2, ...], ...]}
+
+            Example:
+            "bar": {"columns": ["Name", "Age", "City"], "data": [["John", 25, "New York"], ["Lisa", 32, "London"], ...]}
+            
+            There can only be two types of chart, "bar" and "line".
+            
+            If it is just asking a question that does that requires neither, reply as follows:
+            "answer": "answer"
+            Example:
+            "answer": "There a 5 book in the thriller genre"
+            
+            If you do not know the answer, reply as follows:
+            "answer": "I do not know."
+            
+            Return all output as a string.
+            
+            Below is the query.
+            Query: 
+            """
+        + query
+    )
 
     response = agent.run(prompt)
 
