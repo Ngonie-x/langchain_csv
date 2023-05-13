@@ -21,19 +21,19 @@ def query_agent(query):
         """
             For the following query, if it requires drawing a table, reply as follows:
             "table": {"columns": ["column1", "column2", ...], "data": [[value1, value2, ...], [value1, value2, ...], ...]}
-            
-            If it requires drawing a graph, reply as follows:
-            "chart_type": {"columns": ["column1", "column2", ...], "data": [[value1, value2, ...], [value1, value2, ...], ...]}
 
-            Example:
-            "bar": {"columns": ["Name", "Age", "City"], "data": [["John", 25, "New York"], ["Lisa", 32, "London"], ...]}
+            If the query requires creating a bar chart, reply as follows:
+            "bar": {"columns": ["A", "B", "C", ...], "data": [25, 24, 10, ...]}
+            
+            If the query requires creating a line chart, reply as follows:
+            "line": {"columns": ["A", "B", "C", ...], "data": [25, 24, 10, ...]}
             
             There can only be two types of chart, "bar" and "line".
             
             If it is just asking a question that does that requires neither, reply as follows:
             "answer": "answer"
             Example:
-            "answer": "There a 5 book in the thriller genre"
+            "answer": "The title with the highest rating is 'Gilead'"
             
             If you do not know the answer, reply as follows:
             "answer": "I do not know."
