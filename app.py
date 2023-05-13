@@ -15,6 +15,21 @@ df = pd.read_csv("books.csv")
 
 agent = create_pandas_dataframe_agent(llm, df, verbose=True)
 
-query = "How many rows of data are in the document?"
 
-print(agent.run(query))
+def query_agent(query):
+    prompt = f"""
+    For the following query, if it requires drawing a table, reply as follows:
+    'table': '[heading1, heading2, heading3], [row1data1, row1data2, row1data3], [row2data1, row2data2, row2data3]...'
+    
+    If it requires drawing a graph, reply as follows:
+    'graph': '[(type, bar), (x-axis-label, y-axis-label), [(x-value1, y-value1), (x-value2, y-value2), ...]]'
+    
+    If it is just asking a question that does that requires neither, reply as follows:
+    'Answer': 'Answer'
+    
+    Query: {query}
+    """
+
+    response = agent.run(prompt)
+
+    return response.__str__()
