@@ -41,6 +41,8 @@ def query_agent(agent, query):
             
             Return all output as a string.
             
+            Lets think step by step.
+            
             Below is the query.
             Query: 
             """
