@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-from app import query_agent
+from app import query_agent, create_agent
 
 
 def decode_response(response: str) -> dict:
@@ -45,18 +45,20 @@ def write_response(response_dict: dict):
         st.write(response_dict.get("answer"))
 
 
-def get_query():
-    query_text = query
-    response = query_agent(query_text)
-    decoded_response = decode_response(response)
-    write_response(decoded_response)
-
-
 st.title("👨‍💻 Chat with your CSV")
 
 st.write("Please upload your CSV file below.")
 
 data = st.file_uploader("Upload a CSV")
+
+
+def get_query():
+    query_text = query
+    agent = create_agent(data)
+    response = query_agent(agent=agent, query=query_text)
+    decoded_response = decode_response(response)
+    write_response(decoded_response)
+
 
 query = st.text_area("Insert your query")
 
