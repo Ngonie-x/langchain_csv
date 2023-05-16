@@ -10,13 +10,14 @@ environ.Env.read_env()
 
 API_KEY = env("apikey")
 
-llm = OpenAI(openai_api_key=API_KEY)
-df = pd.read_csv("book_sample.csv")
 
-agent = create_pandas_dataframe_agent(llm, df, verbose=False)
+def create_agent(filename: str):
+    llm = OpenAI(openai_api_key=API_KEY)
+    df = pd.read_csv(filename)
+    return create_pandas_dataframe_agent(llm, df, verbose=False)
 
 
-def query_agent(query):
+def query_agent(agent, query):
     prompt = (
         """
             For the following query, if it requires drawing a table, reply as follows:
