@@ -12,8 +12,23 @@ API_KEY = env("apikey")
 
 
 def create_agent(filename: str):
+    """
+    Create an agent that can access and use a large language model (LLM).
+
+    Args:
+        filename: The path to the CSV file that contains the data.
+
+    Returns:
+        An agent that can access and use the LLM.
+    """
+
+    # Create an OpenAI object.
     llm = OpenAI(openai_api_key=API_KEY)
+
+    # Read the CSV file into a Pandas DataFrame.
     df = pd.read_csv(filename)
+
+    # Create a Pandas DataFrame agent.
     return create_pandas_dataframe_agent(llm, df, verbose=False)
 
 
@@ -31,7 +46,7 @@ def query_agent(agent, query):
             
             There can only be two types of chart, "bar" and "line".
             
-            If it is just asking a question that does that requires neither, reply as follows:
+            If it is just asking a question that requires neither, reply as follows:
             "answer": "answer"
             Example:
             "answer": "The title with the highest rating is 'Gilead'"
