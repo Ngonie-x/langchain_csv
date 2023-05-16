@@ -33,6 +33,17 @@ def create_agent(filename: str):
 
 
 def query_agent(agent, query):
+    """
+    Query an agent and return the response as a string.
+
+    Args:
+        agent: The agent to query.
+        query: The query to ask the agent.
+
+    Returns:
+        The response from the agent as a string.
+    """
+
     prompt = (
         """
             For the following query, if it requires drawing a table, reply as follows:
@@ -64,6 +75,8 @@ def query_agent(agent, query):
         + query
     )
 
+    # Run the prompt through the agent.
     response = agent.run(prompt)
 
+    # Convert the response to a string.
     return response.__str__()
