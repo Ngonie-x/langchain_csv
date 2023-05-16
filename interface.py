@@ -15,7 +15,7 @@ def decode_response(response: str) -> dict:
     """
     print(response)
     # Remove the surrounding single quotes from the string representation
-    return eval(response)
+    return eval("{" + response + "}")
 
 
 def write_response(response_dict: dict):
