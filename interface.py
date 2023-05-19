@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import json
 
 from app import query_agent, create_agent
 
@@ -13,9 +14,7 @@ def decode_response(response: str) -> dict:
     Returns:
         dict: dictionary with response data
     """
-    print(response)
-    # Remove the surrounding single quotes from the string representation
-    return eval("{" + response + "}")
+    return json.loads(response)
 
 
 def write_response(response_dict: dict):
