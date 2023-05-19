@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import json
 
-from app import query_agent, create_agent
+from agent import query_agent, create_agent
 
 
 def decode_response(response: str) -> dict:
