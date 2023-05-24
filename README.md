@@ -2,6 +2,14 @@
 
 Repository for the application built in [this](https://dev.to/ngonidzashe/chat-with-your-csv-visualize-your-data-with-langchain-and-streamlit-ej7) article.
 
+## Requirements
+
+Install the required packages by running
+
+```
+pip install -r requirements.txt
+```
+
 ## Interface
 ![interace](https://github.com/Ngonie-x/langchain_csv/assets/28601809/0f27a2da-1128-4b23-9d01-b509b55761eb)
 ---
